@@ -1,0 +1,109 @@
+<section class="blog-container">
+  <div class="flex-wrapper">
+    <div class="stream-container">
+      {{#each visiblePosts as post @body}}
+        {{#if '1'===post.highlight}}
+          <span class="highlight-bar"></span>
+        {{/if}}
+        <article class="blogPost" transition:fade>
+          <h3 class="blogPost-heading">{{post.heading}}</h3>
+          <p class="sans-light">{{post.meta}}</p>
+          {{{post.body}}}
+        </article>
+      {{/each}}
+      {{#if loadMoreButtonVisible}}
+        <span class="button load-more" on:click='loadMorePosts(visiblePosts, publishedPosts)'>Load more posts</span>
+      {{/if}}
+    </div>
+  </div>
+</section>
+
+<style>
+  .blog-heading {
+    margin-bottom: 0.5rem;
+  }
+  .flex-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .highlight-bar {
+    height: 2px;
+    width: 100%;
+    display: block;
+    position: relative;
+    background-color: red;
+    margin: 0;
+    padding: 0;
+  }
+  .stream-container {
+    overflow-y: scroll;
+    height: 50rem;
+    border-style: solid;
+    border-color: #eee;
+    border-width: 1px 0;
+    align-self: stretch;
+  }
+  .blogPost {
+    background-color: white;
+    margin: 0 0 1rem;
+    padding: 1rem;
+    border: 1px solid #eee;
+  }
+  .blogPost-heading {
+    margin-bottom: 0;
+    padding: 0;
+  }
+  .highlight {
+    background-color: red;
+  }
+  .load-more {
+    text-align: center;
+  }
+</style>
+
+<script>
+  /*
+   * TODO:
+   * Add transitions for the blog posts
+   * Make sure it doesn't remove the oldest of the 20 when a new one comes in live
+   * Test all permutations of what happens when there is no or incorrect spreadsheet content
+   */
+
+  import { fade } from 'svelte-transitions';
+
+  export default {
+    computed: {
+      publishedPosts: blogData => {
+        const withoutUnpublished = blogData.blog.filter((post) => {
+          return '1' === post.published;
+        });
+        const reverseOrder = withoutUnpublished.reverse();
+        return reverseOrder;
+      },
+      // I wonder if this will reduce the number back to twenty on every update
+      // I.e. when we receive an update do we want to check the number of visiblePosts
+      // and do make visible that number + 1 ??
+      visiblePosts: publishedPosts => {
+        // return the most recent 20 posts
+        return publishedPosts.slice(0, 20);
+      },
+      loadMoreButtonVisible: (publishedPosts, visiblePosts) => {
+        return visiblePosts.length == publishedPosts.length ? false : true;
+      }
+    },
+
+    methods: {
+      // SOMETHING HERE IS AN INDEX OFF BY ONE, LOADED POSTS ARE WEIRD
+      loadMorePosts(visiblePosts, publishedPosts) {
+        const newNumberOfPosts = visiblePosts.length + 10;
+        const morePosts = publishedPosts.slice(0, newNumberOfPosts);
+        this.set({ visiblePosts: morePosts });
+        this.fire('sendTheHeight');
+      },
+    },
+
+    transitions: {
+      fade,
+    },
+  }
+</script>

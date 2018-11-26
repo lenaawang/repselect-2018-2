@@ -1,0 +1,64 @@
+<:Window bind:innerWidth='appWidth'/>
+
+{{#if !hasConnection}}
+	<h1 class="loading">Loading...</h1>
+{{else}}
+	<Header
+		blogTitle='{{collatedResults.copy[0].blogtitle}}'
+		headerStandfirst='{{collatedResults.copy[0].headerstandfirst}}'
+		newData='{{newData}}'
+		indicateLive='{{collatedResults.copy[0].indicatelive}}'
+	/>
+	<div class="blog-only-wrapper">
+		<Blog
+			blogData='{{blogData}}'
+			on:sendTheHeight='pymUpdateHeight()'
+		/>
+	</div>
+	<Footer footnotes='{{collatedResults.copy[0].footnotes}}'/>
+{{/if}}
+
+<style>
+	.loading {
+		text-align: center;
+	}
+</style>
+
+<script>
+	import Footer from './components/Footer.html';
+	import Blog from './components/Blog.html';
+	import Header from './components/Header.html';
+
+	export default {
+    components: {
+			Blog,
+			Header,
+			Footer,
+		},
+
+		methods: {
+			pymUpdateHeight: function() {
+				this.fire('sendTheHeight');
+			}
+		},
+
+		computed: {
+			collatedResults: (results, colors) => {
+				const restructuredResults = {};
+				restructuredResults['council'] = results.council;
+				restructuredResults['honi'] = results.honi;
+				restructuredResults['nus'] = results.nus;
+				restructuredResults['pres'] = results.pres;
+				restructuredResults['copy'] = results.copy;
+				restructuredResults['colors'] = colors;
+				return restructuredResults;
+			},
+			blogData: results => {
+				const restructuredData = {};
+				restructuredData['blog'] = results.blog;
+				restructuredData['copy'] = results.copy;
+				return restructuredData;
+			}
+		}
+  };
+</script>

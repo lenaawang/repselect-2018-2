@@ -1,0 +1,222 @@
+body {
+	color: #333;
+	font-size: 16px;
+	line-height: 1.4;
+	margin: 0;
+	padding: 0.5rem;
+	box-sizing: border-box;
+	font-family: 'Lora', Georgia, serif;
+}
+
+p,
+.results-graphic {
+	margin: 0 0 1rem;
+}
+
+h1,
+h2,
+h3,
+span,
+table,
+.sans-light,
+.sans-dark {
+	font-family: 'Roboto', Helvetica, sans-serif;
+}
+
+h2 {
+	font-size: 1.7rem;
+	text-transform: uppercase;
+	letter-spacing: 0.9;
+	margin: 0 0 1rem;
+}
+
+h3 {
+	font-size: 1rem;
+	margin: 0 0 1rem;
+}
+
+.table-wrapper {
+	overflow: scroll;
+}
+table {
+	width: 100%;
+  border: 1px solid #eee;
+	border-top-width: 0px;
+	font-size: 0.8rem;
+	border-collapse: collapse;
+	text-align: left;
+	padding: 0.3rem;
+}
+
+thead {
+	color: #666;
+	text-transform: uppercase;
+	margin: 0;
+	border-bottom: 1px solid #eee;
+}
+
+th {
+	font-weight: 300;
+	padding: 0.3rem;
+}
+
+tr {
+	border-bottom: 1px solid #eee;
+}
+
+td {
+	padding: 0.3rem;
+}
+
+.sans-dark,
+.sans-light {
+	font-size: 0.8rem;
+	margin: 0 0 1rem;
+}
+
+.sans-light {
+	color: #666;
+}
+
+a,
+a:hover,
+a:visited,
+a:active {
+	color: #333;
+}
+
+label {
+	display: block;
+}
+
+input, button, select, textarea {
+	font-family: inherit;
+	font-size: inherit;
+	padding: 0.4em;
+	margin: 0 0 0.5em 0;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+}
+
+input:disabled {
+	color: #ccc;
+}
+
+input[type="range"] {
+	height: 0;
+}
+
+button {
+	background-color: #f4f4f4;
+	outline: none;
+}
+
+button:active {
+	background-color: #ddd;
+}
+
+button:focus {
+	border-color: #666;
+}
+
+/*
+ * Layout
+ */
+
+.results-container {
+ display: block;
+}
+
+.results-section {
+	margin: 0 0 2rem;
+}
+
+.blog-container {
+	width: auto;
+}
+
+.content-wrapper {
+	display: flex;
+}
+
+.blog-only-wrapper {
+	width: 100%;
+	margin: 0.5rem auto;
+}
+
+@media (min-width: 500px) {
+	.blog-only-wrapper,
+	.results-container,
+	.blog-container {
+		width: 80%;
+		margin: 0 auto 1rem;
+	}
+}
+
+@media (min-width:900px) {
+ .results-container {
+	 flex: 6;
+	 display: flex;
+	 flex-wrap: wrap;
+	 justify-content: space-between;
+	 align-content: flex-start;
+	 margin: 0 1rem 1rem;
+ }
+
+ .results-section {
+	 width: 48%
+ }
+
+	.blog-container {
+		flex: 2;
+		margin: 0 auto 1rem;
+	}
+
+ .blog-only-wrapper {
+	 width: 50%;
+	 margin: 0 auto 1rem;
+ }
+}
+
+/*
+ * Components
+ */
+.toggle {
+  background-color: #eeeeee;
+	font-weight: 700;
+  padding: 0.5rem;
+	text-transform: uppercase;
+}
+
+.candidate-name {
+	font-weight: 700;
+}
+
+.button {
+	font-family: "Roboto", Helvetica, sans-serif;
+	font-weight: 700;
+	font-size: 1rem;
+	text-transform: uppercase;
+	padding: 0.5rem 1rem;
+	margin: 0 auto;
+	display: block;
+	border: 1px solid black;
+}
+
+.candidate-elected {
+  height: 100%;
+}
+
+.icon {
+  display: none;
+  width: auto;
+  margin: auto;
+  height: 1em;
+  stroke-width: 0;
+  stroke: #333;
+  fill: #333;
+}
+.icon--show {
+  display: block;
+}
